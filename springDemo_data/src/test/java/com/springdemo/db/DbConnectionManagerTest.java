@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
- * @author oluwatobi
+ * @author adefunmi
  *
  */
 @ContextConfiguration("classpath:/springDemo-data-context.xml")

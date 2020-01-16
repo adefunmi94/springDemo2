@@ -39,22 +39,22 @@ public class EmployeeControllerTest {
 		
 	}
 	
-	@Test
-	public void getFormRequestTest() {
-		
-		try {
-			
-			mockMvc.perform(post("/showForm"))
-				   .andExpect(status().isOk());
-			
-		} 
-		catch (Exception e) {
-			
-			e.printStackTrace();
-		
-		}
-		
-	}
+//	@Test
+//	public void getFormRequestTest() {
+//		
+//		try {
+//			
+//			mockMvc.perform(post("/showForm"))
+//				   .andExpect(status().isOk());
+//			
+//		} 
+//		catch (Exception e) {
+//			
+//			e.printStackTrace();
+//		
+//		}
+//		
+//	}
 
 	@Test
 	public void test() {

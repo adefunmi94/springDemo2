@@ -51,7 +51,7 @@ public class EmployeeDaoImplTest {
 		
 		String jdbcDriver = "com.mysql.cj.jdbc.Driver";
 		
-		String DBUrl = "jdbc:mysql://localhost:3306/springDemoDB?useSSL=false&serverTimezone=UTC";
+		String DBUrl = "jdbc:mysql://localhost:3306/springDemoDB?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 		
 		Connection conn = null;
 		
@@ -80,7 +80,7 @@ public class EmployeeDaoImplTest {
 					"	\n" + 
 					"	 primary key(`id`)\n" + 
 					"	\n" + 
-					")ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;");
+					")ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;");
 			
 		}
 		catch(Exception e) {
@@ -107,8 +107,7 @@ public class EmployeeDaoImplTest {
 	@Test
 	public void addEmployeeToDatabaseTest() {
 		
-	try {	
-			logger.info("Creating new employee object");
+	try {			logger.info("Creating new employee object");
 			 logger.info("Creating new employee object");
 			Employee tempEmployee = new Employee("John", "Paulina", "john@gmail.com");
 			
@@ -128,47 +127,80 @@ public class EmployeeDaoImplTest {
 		
 	}
 	
+//	@Test
+//	public void getEmployeeListTest() {
+//		
+//		//create employee
+//		Employee tempEmployee = new Employee("John", "Paulina", "john@gmail.com");
+//		Employee tempEmployee2 = new Employee("James", "Brown", "james@gmail.com");
+//		Employee tempEmployee3 = new Employee("Micheal", "Blake", "micheal@gmail.com");
+//	
+//	
+//		//save empoloyees to the database
+//		employeeDaoImpl.addEmployee(tempEmployee);
+//		employeeDaoImpl.addEmployee(tempEmployee2);
+//		employeeDaoImpl.addEmployee(tempEmployee3);
+//		
+//		List<Employee> theEmployees = employeeDaoImpl.getEmployees();
+//		
+//		assertNotNull(theEmployees.get(0));
+//		assertNotNull(theEmployees.get(1));
+//		assertNotNull(theEmployees.get(2));
+//		
+//	}
+//	
+//	@Test
+//	public void getEmployeeByIdTest() {
+//		
+//		//create employee
+//			Employee tempEmployee = new Employee("adeola", "olugbemi", "adeolaolugbemi@gmail.com");
+//			Employee tempEmployee2 = new Employee("James", "Michela", "jamesmicheal@gmail.com");
+//			Employee tempEmployee3 = new Employee("Micheal", "tola", "tola@gmail.com");
+//		
+//		
+//			//save empoloyees to the database
+//			employeeDaoImpl.addEmployee(tempEmployee);
+//			employeeDaoImpl.addEmployee(tempEmployee2);
+//			employeeDaoImpl.addEmployee(tempEmployee3);
+//			
+//			List<Employee> theEmployees = employeeDaoImpl.getEmployees();
+//			
+//			assertNotNull(theEmployees.get(0));
+//			assertNotNull(theEmployees.get(1));
+//			assertNotNull(theEmployees.get(2));
+//			
+//			
+//			int employeeId = theEmployees.get(0).getId();
+//			
+//			Employee tempEmployee4  = employeeDaoImpl.getEmployeeById(employeeId);
+//			
+//			String firstName = tempEmployee4.getFirstName();
+//			String lastName = tempEmployee4.getLastName();
+//			String email = tempEmployee4.getEmail();
+//			
+//			assertNotNull(tempEmployee4);
+//			
+//			System.out.println("Employee found from the Database: ==>> "+tempEmployee4);
+//			
+//			assertEquals(firstName, tempEmployee4.getFirstName());
+//			assertEquals(lastName, tempEmployee4.getLastName());
+//			assertEquals(email, tempEmployee4.getEmail());
+//					
+//	}
+	
+	
 	@Test
 	public void getEmployeeListTest() {
 		
-		//create employee
-		Employee tempEmployee = new Employee("John", "Paulina", "john@gmail.com");
-		Employee tempEmployee2 = new Employee("James", "Brown", "james@gmail.com");
-		Employee tempEmployee3 = new Employee("Micheal", "Blake", "micheal@gmail.com");
-	
-	
-		//save empoloyees to the database
-		employeeDaoImpl.addEmployee(tempEmployee);
-		employeeDaoImpl.addEmployee(tempEmployee2);
-		employeeDaoImpl.addEmployee(tempEmployee3);
-		
-		List<Employee> theEmployees = employeeDaoImpl.getEmployees();
-		
-		assertNotNull(theEmployees.get(0));
-		assertNotNull(theEmployees.get(1));
-		assertNotNull(theEmployees.get(2));
+		List<Employee> theEmployees = createEmployeeAndSave();
 		
 	}
 	
 	@Test
-	public void getEmployeeByIdTest() {
+	public void updateEmployee() {
 		
 		//create employee
-			Employee tempEmployee = new Employee("John", "Paulina", "john@gmail.com");
-			Employee tempEmployee2 = new Employee("James", "Brown", "james@gmail.com");
-			Employee tempEmployee3 = new Employee("Micheal", "Blake", "micheal@gmail.com");
-		
-		
-			//save empoloyees to the database
-			employeeDaoImpl.addEmployee(tempEmployee);
-			employeeDaoImpl.addEmployee(tempEmployee2);
-			employeeDaoImpl.addEmployee(tempEmployee3);
-			
-			List<Employee> theEmployees = employeeDaoImpl.getEmployees();
-			
-			assertNotNull(theEmployees.get(0));
-			assertNotNull(theEmployees.get(1));
-			assertNotNull(theEmployees.get(2));
+			List<Employee> theEmployees = createEmployeeAndSave();
 			
 			
 			int employeeId = theEmployees.get(0).getId();
@@ -181,31 +213,55 @@ public class EmployeeDaoImplTest {
 			
 			assertNotNull(tempEmployee4);
 			
-			System.out.println("Employee found from the Database: ==>> "+tempEmployee4);
+			displayEmployee(tempEmployee4);
 			
 			assertEquals(firstName, tempEmployee4.getFirstName());
 			assertEquals(lastName, tempEmployee4.getLastName());
 			assertEquals(email, tempEmployee4.getEmail());
+			
+			tempEmployee4.setLastName("Johnson");
+			
+			employeeDaoImpl.updateEmployee(tempEmployee4);
 					
 	}
-	
-//	@Test
-//	public void updateEmployee() {
-//		
-//		//get an employee from the database
-//		
-//		List<Employee> employeeList = employeeDaoImpl.getEmployees();
-//		
-//		Employee tempEmployee4 = employeeList.get(1);
-//		
-//		//update the employee
-//		String firstName = tempEmployee4.getFirstName();
-//		String lastName = tempEmployee4.getLastName();
-//		String email = tempEmployee4.getEmail();
-//		
-//	}
-	
-	
+
+	private void displayEmployee(Employee tempEmployee4) {
+		System.out.println("Employee found from the Database: ==>> "+tempEmployee4);
+	}
+
+	private List<Employee> createEmployeeAndSave() {
+		Employee tempEmployee = new Employee("John", "Paulina", "john@gmail.com");
+		Employee tempEmployee2 = new Employee("James", "Brown", "james@gmail.com");
+		Employee tempEmployee3 = new Employee("Micheal", "Blake", "micheal@gmail.com");
+
+
+		//save empoloyees to the database
+		employeeDaoImpl.addEmployee(tempEmployee);
+		employeeDaoImpl.addEmployee(tempEmployee2);
+		employeeDaoImpl.addEmployee(tempEmployee3);
+		
+		List<Employee> theEmployees = employeeDaoImpl.getEmployees();
+		
+		assertNotNull(theEmployees.get(0));
+		assertNotNull(theEmployees.get(1));
+		assertNotNull(theEmployees.get(2));
+		return theEmployees;
+	}
+
+	@Test
+	public void deleteEmployeeTest() {
+		//create employee
+		List<Employee> theEmployees = createEmployeeAndSave();
+		
+		
+		Employee tempEmployee = theEmployees.get(0);
+		
+		displayEmployee(tempEmployee);
+		
+		employeeDaoImpl.deleteEmployee(tempEmployee);
+		
+		
+	}
 	
 	
 
